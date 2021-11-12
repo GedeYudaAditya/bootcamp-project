@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1>Hi Its Work!! Its Home Page!</h1>
+    <h1>Nature!!</h1>    
 @endsection

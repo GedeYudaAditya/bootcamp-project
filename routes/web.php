@@ -17,6 +17,8 @@ use App\Http\Controllers\MainController;
 
 // Main Website
 Route::get('/', [MainController::class, 'index']);
+Route::get('/nature', [MainController::class, 'nature']);
+Route::get('/culture', [MainController::class, 'culture']);
 
 // Auth
 Route::get('/login', [AuthController::class, 'index']);
