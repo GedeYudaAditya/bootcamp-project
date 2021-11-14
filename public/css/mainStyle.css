@@ -1,0 +1,266 @@
+/* Start All Page */
+
+body {
+    background-color: #437DBC;
+    font-family: "Rokkitt Thinn" !important;
+}
+
+nav.navbar {
+    position: absolute;
+    margin: auto 0;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.page {
+    margin-top: 70px !important;
+}
+
+h1 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 27px;
+    letter-spacing: 0.075em;
+}
+
+.space {
+    margin-bottom: 95vh;
+}
+
+p {
+    margin-bottom: 3px;
+}
+
+footer {
+    padding: 10px;
+    text-align: center;
+    margin-top: 50px;
+    color: white;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgb(51, 51, 51);
+    height: 80px;
+    width: 100%;
+}
+
+@font-face {
+    font-family: "Rokkitt Thinn";
+    src: url(../font/Rokkitt.ttf);
+}
+
+/* End All Page */
+
+/* ==== Start Dekstop Layout ==== */
+
+/* Start login style */
+.new-chat-window {
+    position: relative;
+    width: 400px;
+    height: 40px;
+    line-height: 40px;
+    background: #9FADBC;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    z-index: 2;
+}
+
+.new-chat-window .fa {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+input:focus {
+    outline-color: white;
+    box-shadow: 0px 0px 10px rgb(105, 253, 37);
+}
+
+.new-chat-window-input {
+
+    border: 1px solid #ccc;
+    background-color: transparent;
+    width: 400px;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 40px;
+    width: 100%;
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.new-chat-window-input-select {
+    border: 1px solid #ccc;
+    background-color: transparent;
+    width: 400px;
+    height: 40px;
+    /* line-height: 40px; */
+    padding-left: 40px;
+    width: 100%;
+    z-index: 1;
+    border-radius: 20px;
+}
+
+.banner {
+    margin: auto 0;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    background: url(/img/bali.png);
+    border-radius: 10px;
+}
+
+.login {
+    position: absolute;
+    width: 400px;
+    height: 169px;
+    left: 50%;
+    top: 85%;
+    transform: translate(-50%, -50%);
+}
+
+.forget {
+    text-decoration: none;
+    color: black;
+    transition: all;
+    transition-duration: 1s;
+}
+
+.forget:hover {
+    color: rgb(52, 218, 52);
+    transition: all;
+    transition-duration: 1s;
+}
+
+form {
+    text-align: center;
+}
+
+/* input {
+    border: 1px solid #ccc;
+    padding: 12px 20px;
+    width: 400px;
+    height: 40px;
+    background: #9FADBC;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+} */
+
+.label {
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn.btn-info {
+    width: 105px;
+    border-radius: 20px;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
+    transition: all;
+    transition-duration: 1s;
+}
+
+.btn.btn-info:hover {
+    box-shadow: 0px 0px 10px rgb(52, 218, 52);
+    background-color: rgb(52, 218, 52);
+    transition: all;
+    transition-duration: 1s;
+}
+
+/* ==== End Dekstop Layout ==== */
+
+/* ==== Start Smartphone Layout ==== */
+@media (max-width: 768px) {
+
+    .banner {
+        margin: auto 0;
+        left: 50%;
+        top: 43%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        width: 330px;
+        height: 169px;
+        /* background: url(/img/Warna-Abu-Abu.jpg); */
+        background-position: center;
+        background-size: cover;
+        border-radius: 10px;
+    }
+
+    .login {
+        position: absolute;
+        width: 330px;
+        height: 169px;
+        left: 50%;
+        top: 75%;
+        transform: translate(-50%, -50%);
+    }
+
+    .new-chat-window {
+        position: relative;
+        width: 315px;
+        height: 40px;
+        line-height: 40px;
+        background: #9FADBC;
+        box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+        display: block;
+        margin: 10px auto;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .new-chat-window .fa {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        font-weight: bold;
+        font-style: normal;
+    }
+
+    input:focus {
+        outline-color: white;
+        box-shadow: 0px 0px 10px rgb(105, 253, 37);
+    }
+
+    .new-chat-window-input {
+        border: 1px solid #ccc;
+        background-color: transparent;
+        width: 315px;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 40px;
+        width: 100%;
+        z-index: 1;
+        border-radius: 20px;
+    }
+
+    .new-chat-window-input-select {
+        border: 1px solid #ccc;
+        background-color: transparent;
+        width: 315px;
+        height: 40px;
+        /* line-height: 40px; */
+        padding-left: 40px;
+        width: 100%;
+        z-index: 1;
+        border-radius: 20px;
+    }
+
+    /* input {
+        padding: 12px 20px;
+        width: 315px;
+        height: 40px;
+        background: #9FADBC;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+    } */
+}
+
+/* ==== End Smartphone Layout ==== */

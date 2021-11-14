@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Main Website
+Route::get('/', [MainController::class, 'index']);
+Route::get('/nature', [MainController::class, 'nature']);
+Route::get('/culture', [MainController::class, 'culture']);
+Route::get('/tentang', [MainController::class, 'about']);
+
+// Auth
+Route::get('/auth', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'login']);
+Route::get('/registration', [AuthController::class, 'regist']);
