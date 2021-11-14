@@ -29,4 +29,12 @@ class MainController extends Controller
         ];
         return view('culture', $data);
     }
+
+    public function about()
+    {
+        $data = [
+            'title' => 'Tentang'
+        ];
+        return view('about', $data);
+    }
 }
