@@ -1,5 +1,89 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1>Hi Its Work!! Its Home Page!</h1>
+    <h1 class="title-home text-center">Welcome, {{ $user }}</h1>
+
+    <div>
+        <form action="" class="d-flex justify-content-between">
+            <input type="text" id="cari" class="form-control cari" aria-describedby="passwordHelpBlock" placeholder="Search here">
+            <button type="submit" class="btn btn-success cari">Search</button>
+        </form>
+    </div>
+    <div class="container black bg-light box">
+        <h1 class="text-center">Popular Destination</h1>
+        <hr>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="card bg-dark text-white d-block img-thumbnail">
+                        <img src="img/bali.png" class="img w-100" alt="...">
+                        <div class="card-img-overlay color">
+                            <h1 class="card-title">Destination 1</h1>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, deserunt, accusamus at illo animi, ea aliquam delectus obcaecati corporis expedita veritatis consequatur repellendus? Velit dignissimos molestiae maxime obcaecati aut? A rerum sed omnis? Deleniti fuga totam cumque consectetur unde eveniet et, doloremque delectus expedita, ullam tenetur sequi, voluptatum optio commodi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card bg-dark text-white d-block img-thumbnail">
+                        <img src="img/bali2.jpg" class="img w-100" alt="...">
+                        <div class="card-img-overlay color">
+                            <h1 class="card-title">Destination 1</h1>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, deserunt, accusamus at illo animi, ea aliquam delectus obcaecati corporis expedita veritatis consequatur repellendus? Velit dignissimos molestiae maxime obcaecati aut? A rerum sed omnis? Deleniti fuga totam cumque consectetur unde eveniet et, doloremque delectus expedita, ullam tenetur sequi, voluptatum optio commodi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="card bg-dark text-white d-block img-thumbnail">
+                        <img src="img/bali3.jpg" class="img w-100" alt="...">
+                        <div class="card-img-overlay color">
+                            <h1 class="card-title">Destination 1</h1>
+                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, deserunt, accusamus at illo animi, ea aliquam delectus obcaecati corporis expedita veritatis consequatur repellendus? Velit dignissimos molestiae maxime obcaecati aut? A rerum sed omnis? Deleniti fuga totam cumque consectetur unde eveniet et, doloremque delectus expedita, ullam tenetur sequi, voluptatum optio commodi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4 black">
+        
+        <div class="col">
+            <a href="/nature" class="no-link">
+            <div class="card h-100 link">
+            <img src="img/alam.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h1 class="card-title">Nature Destination</h1>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            </div>
+            </a>
+        </div>
+        
+        
+        <div class="col">
+            <a href="/culture" class="no-link">
+            <div class="card h-100 link">
+            <img src="img/budaya.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h1 class="card-title">Culture Destination</h1>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+            </div>
+            </a>
+        </div>
+        
+    </div>
 @endsection

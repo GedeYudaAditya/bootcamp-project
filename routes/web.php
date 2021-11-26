@@ -17,11 +17,19 @@ use App\Http\Controllers\MainController;
 
 // Main Website
 Route::get('/', [MainController::class, 'index']);
+
 Route::get('/nature', [MainController::class, 'nature']);
+
 Route::get('/culture', [MainController::class, 'culture']);
+
 Route::get('/tentang', [MainController::class, 'about']);
 
 // Auth
-Route::get('/auth', [AuthController::class, 'index']);
+Route::get('/landing', [AuthController::class, 'index']);
+
 Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'authenticate']);
+Route::get('/logout', [AuthController::class, 'logout']);
+
 Route::get('/registration', [AuthController::class, 'regist']);
+Route::post('/registration', [AuthController::class, 'store']);

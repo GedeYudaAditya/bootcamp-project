@@ -8,8 +8,12 @@ class MainController extends Controller
 {
     public function index()
     {
+        if (session('log') == false) {
+            return redirect()->intended('/login');
+        }
         $data = [
-            'title' => 'Home'
+            'title' => 'Home',
+            'user' => session('user')
         ];
         return view('home', $data);
     }
