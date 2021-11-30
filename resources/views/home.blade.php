@@ -1,7 +1,20 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1 class="title-home text-center">Welcome, {{ $user }}</h1>
+    @if(session()->has('denied'))
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <strong>{{ session('denied') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if(session()->has('create'))
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>{{ session('create') }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+    <h1 class="title-home text-center">Welcome, {{ Auth::user()->name }}</h1>
 
     <div>
         <form action="" class="d-flex justify-content-between">
@@ -14,38 +27,26 @@
         <hr>
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <?php $i = 1 ?>
+                @foreach ($allDestination as $destination)
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $i-1 }}" {{ ($i == 1) ? "class=active" : ' ' }} {{ ($i == 1) ? "aria-current=true" : '' }} aria-label="Slide {{ $i }}"></button>
+                <?php $i++ ?>
+                @endforeach
             </div>
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="card bg-dark text-white d-block img-thumbnail">
-                        <img src="img/bali.png" class="img w-100" alt="...">
-                        <div class="card-img-overlay color">
-                            <h1 class="card-title">Destination 1</h1>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, deserunt, accusamus at illo animi, ea aliquam delectus obcaecati corporis expedita veritatis consequatur repellendus? Velit dignissimos molestiae maxime obcaecati aut? A rerum sed omnis? Deleniti fuga totam cumque consectetur unde eveniet et, doloremque delectus expedita, ullam tenetur sequi, voluptatum optio commodi.</p>
+                <?php $i = 1 ?>
+                @foreach ($allDestination as $destination)
+                    <div class="carousel-item {{ ($i == 1) ? 'active' : ' ' }}">
+                        <div class="card bg-dark text-white d-block img-thumbnail">
+                            <img src="img/bali.png" class="img w-100" alt="...">
+                            <div class="card-img-overlay color">
+                                <h1 class="card-title">{{ $destination->namaObjek }}</h1>
+                                <p class="card-text">{{ $destination->deskripsi }}</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card bg-dark text-white d-block img-thumbnail">
-                        <img src="img/bali2.jpg" class="img w-100" alt="...">
-                        <div class="card-img-overlay color">
-                            <h1 class="card-title">Destination 1</h1>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, deserunt, accusamus at illo animi, ea aliquam delectus obcaecati corporis expedita veritatis consequatur repellendus? Velit dignissimos molestiae maxime obcaecati aut? A rerum sed omnis? Deleniti fuga totam cumque consectetur unde eveniet et, doloremque delectus expedita, ullam tenetur sequi, voluptatum optio commodi.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="card bg-dark text-white d-block img-thumbnail">
-                        <img src="img/bali3.jpg" class="img w-100" alt="...">
-                        <div class="card-img-overlay color">
-                            <h1 class="card-title">Destination 1</h1>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, deserunt, accusamus at illo animi, ea aliquam delectus obcaecati corporis expedita veritatis consequatur repellendus? Velit dignissimos molestiae maxime obcaecati aut? A rerum sed omnis? Deleniti fuga totam cumque consectetur unde eveniet et, doloremque delectus expedita, ullam tenetur sequi, voluptatum optio commodi.</p>
-                        </div>
-                    </div>
-                </div>
+                    </div> 
+                <?php $i++ ?>
+                @endforeach
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

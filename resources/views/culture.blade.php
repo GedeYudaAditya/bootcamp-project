@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1>Culture!!</h1>    
+    <h1>List Culture Destination!!</h1>   
+
+    
 @endsection

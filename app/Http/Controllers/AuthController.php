@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\akun;
 use App\Models\guide;
 use App\Models\touris;
@@ -34,20 +35,28 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
-        $request->session('log');
-        $request->session('user');
-        $validatedData = $request->validate([
+        // $request->session('log');
+        // $request->session('user');
+        // $request->session('role');
+        $userData = $request->validate([
             'email' => 'required|email:dns',
             'password' => 'required|min:8'
         ]);
 
-        $user = akun::where('email', $validatedData['email'])->first();
-        if ($user) {
-            if (Hash::check($validatedData['password'], $user->Password)) {
-                $request->session()->put('log', true);
-                $request->session()->put('user', $user->Nama_Akun);
-                return redirect()->intended('/');
-            }
+        // $user = akun::where('email', $validatedData['email'])->first();
+        // if ($user) {
+        //     if (Hash::check($validatedData['password'], $user->Password)) {
+        //         $request->session()->put('log', true);
+        //         $request->session()->put('user', $user->Nama_Akun);
+        //         $request->session()->put('role', $user->Kategori_Akun);
+        //         return redirect()->intended('/');
+        //     }
+        // }
+
+        if (Auth::attempt($userData)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/');
         }
 
         return back()->with('logerr', "Login Invalid");
@@ -65,8 +74,9 @@ class AuthController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|min:2',
-            'email' => 'required|email:dns|unique:akuns',
+            'email' => 'required|email:dns|unique:users',
             'telp' => 'required',
+            'alamat' => 'required',
             'password' => 'required|min:8',
             'password2' => 'required|min:8',
             'role' => 'required'
@@ -75,29 +85,31 @@ class AuthController extends Controller
         if ($validatedData['password'] == $validatedData['password2']) {
             $validatedData['password'] = Hash::make($validatedData['password']);
 
-            akun::create([
-                'Nama_Akun' => $validatedData['nama'],
+            User::create([
+                'name' => $validatedData['nama'],
                 'email' => $validatedData['email'],
-                'Kategori_Akun' => $validatedData['role'],
-                'Password' => $validatedData['password']
+                'kategoriAkun' => $validatedData['role'],
+                'noTlp' => $validatedData['telp'],
+                'alamat' => $validatedData['alamat'],
+                'password' => $validatedData['password']
             ]);
 
-            $user = akun::where('email', $validatedData['email'])->first();
+            // $user = User::where('email', $validatedData['email'])->first();
 
-            if ($validatedData['role'] == 1) {
-                guide::create([
-                    'NamaGuide' => $validatedData['nama'],
-                    'noTlp' => $validatedData['telp'],
-                    'fk_Id_Akun' => $user->Id_akun,
-                    'alamat' => 'Belum di tentukan'
-                ]);
-            }
+            // if ($validatedData['role'] == 1) {
+            //     guide::create([
+            //         'NamaGuide' => $validatedData['nama'],
+            //         'noTlp' => $validatedData['telp'],
+            //         'fk_Id_Akun' => $user->Id_akun,
+            //         'alamat' => 'Belum di tentukan'
+            //     ]);
+            // }
 
-            touris::create([
-                'namaTouris' => $validatedData['nama'],
-                'noTlpn' => $validatedData['telp'],
-                'fk_id_akun' => $user->Id_akun
-            ]);
+            // touris::create([
+            //     'namaTouris' => $validatedData['nama'],
+            //     'noTlpn' => $validatedData['telp'],
+            //     'fk_id_akun' => $user->Id_akun
+            // ]);
             $request->session()->flash('success', "Creating Account Successfully!!");
             return redirect('/login');
         } else {
@@ -107,7 +119,12 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->forget(['log', 'user']);
-        return back();
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

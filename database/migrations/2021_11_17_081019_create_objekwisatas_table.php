@@ -17,10 +17,30 @@ class CreateObjekwisatasTable extends Migration
             $table->integerIncrements('id_objek_wisata')->unsigned();
             $table->string('namaObjek', 100);
             $table->integer('price');
-            $table->date('date');
-            $table->integer('fk_id_guide')->unsigned();
+            $table->string('day');
+            $table->enum('type', ['culture', 'nature']);
+            $table->enum('category', [
+                'tari', 'musik', 'drama', 'tradisi', 'kuliner',
+                'air terjun', 'danau', 'pegunungan', 'taman'
+            ]);
+            $table->bigInteger('fk_id_user')->unsigned();
+            $table->string('fasilitas');
+            $table->enum('kabupaten', [
+                'badung',
+                'bangli',
+                'buleleng',
+                'gianyar',
+                'jembrana',
+                'karangasem',
+                'kelungkung',
+                'tabanan',
+                'denpasar'
+            ]);
+            $table->string('alamat');
+            $table->text('deskripsi');
+            $table->integer('rating');
             $table->timestamps();
-            $table->foreign('fk_id_guide')->references('id_guide')->on('guides');
+            $table->foreign('fk_id_user')->references('id')->on('users');
         });
     }
 

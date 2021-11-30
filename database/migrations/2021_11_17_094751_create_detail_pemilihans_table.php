@@ -15,11 +15,13 @@ class CreateDetailPemilihansTable extends Migration
     {
         Schema::create('detail_pemilihans', function (Blueprint $table) {
             $table->integerIncrements('id_DetailPemilihan')->unsigned();
+            $table->integer('jumlahTiket');
+            $table->integer('totalHarga');
             $table->integer('fk_id_objekWisata')->unsigned();
-            $table->integer('fk_id_member')->unsigned();
+            $table->bigInteger('fk_id_member')->unsigned();
             $table->timestamps();
             $table->foreign('fk_id_objekWisata')->references('id_objek_wisata')->on('objekwisatas');
-            $table->foreign('fk_id_member')->references('id_member')->on('touris');
+            $table->foreign('fk_id_member')->references('id')->on('users');
         });
     }
 

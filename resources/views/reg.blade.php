@@ -43,6 +43,17 @@
                 </div>
             @enderror
             
+            <label class="label" for="alamat">Alamat</label>
+            <div class="new-chat-window">
+                <i class="fa fa-home"></i>
+                <input class="new-chat-window-input form-control @error('alamat') is-invalid @enderror" type="tel" name="alamat" id="alamat" placeholder="Your Home" required value="{{ old('alamat') }}">
+            </div>
+            @error('alamat')
+                <div class="invalid-feedback massage">
+                    {{ $message }}
+                </div>
+            @enderror
+            
             <label class="label" for="pass">Password</label>
             <div class="new-chat-window">
                 <i class="fa fa-lock"></i>
@@ -70,8 +81,8 @@
                 <i class="fa fa-id-card"></i>
                 <select id="role" class="form-select new-chat-window-input-select form-control @error('role') is-invalid @enderror" aria-label=".form-select-sm example" name="role" required value="{{ old('role') }}">
                     <option selected>Select Your Rule</option>
-                    <option value=0>Tourist</option>
-                    <option value=1>Guides</option>
+                    <option value="touris">Tourist</option>
+                    <option value="guide">Guides</option>
                 </select>
             </div>
             @error('role')

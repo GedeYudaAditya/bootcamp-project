@@ -10,16 +10,20 @@
 
     <div class="login">
         @if(session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('success') }}</strong>
+        <div class="col row justify-content-md-center text-center">
+            <div class="col-md-5 alert alert-success alert-dismissible fade show text center" role="alert">
+                <strong>{{ session('success') }}, Login Now!</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        </div>
         @endif
         @if(session()->has('logerr'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>{{ session('logerr') }}</strong>
+        <div class="col row justify-content-md-center text-center">
+            <div class="col-md-5 alert alert-danger alert-dismissible fade show text center" role="alert">
+                <strong>{{ session('logerr') }}, Worng Password or Account! </strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        </div>
         @endif
         <form action="/login" method="POST">
             @csrf
@@ -33,10 +37,10 @@
                     {{ $message }}
                 </div>
             @enderror
-            <label class="label" for="pass">Password</label>
+            <label class="label" for="password">Password</label>
             <div class="new-chat-window">
                 <i class="fa fa-lock"></i>
-                <input class="new-chat-window-input form-control @error('password') is-invalid @enderror" type="password" name="password" id="passsword" placeholder="Your Password" required>
+                <input class="new-chat-window-input form-control @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Your Password" required>
             </div>
             @error('password')
                 <div class="invalid-feedback massage">
