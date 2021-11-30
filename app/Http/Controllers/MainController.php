@@ -11,6 +11,7 @@ class MainController extends Controller
 {
     public function index()
     {
+        Request()->session()->flash('index', "menu");
         $data = [
             'title' => 'Home',
             'allDestination' => DB::select('select * from objekwisatas')
@@ -152,6 +153,13 @@ class MainController extends Controller
             ->join('users', 'objekwisatas.fk_id_user', '=', 'users.id')
             ->get();
 
+        if ($join == '[]') {
+            $join = DB::table('objekwisatas')
+                ->select()->where('objekwisatas.id_objek_wisata', '=', $id)->where('objekwisatas.type', $type)
+                ->join('users', 'objekwisatas.fk_id_user', '=', 'users.id')
+                ->get();
+        }
+
         $data = [
             'title' => 'Create Destination',
             'detailData' => $join
@@ -160,18 +168,26 @@ class MainController extends Controller
     }
     public function editDestination($type, $id)
     {
+        $idUserData = DB::select('select * from objekwisatas where id_objek_wisata=' . $id);
+
+        if (Auth::user()->id != $idUserData[0]->fk_id_user) {
+            Request()->session()->flash('denied', "Access Denied!!");
+            return redirect('/');
+        }
         $data = [
             'title' => 'Create Destination',
             'detailData' => DB::select("select * from objekwisatas where fk_id_user=" . Auth::user()->id . " AND id_objek_wisata=" . $id),
-            'type' => $type
+            'type' => $type,
+            'id' => $id
         ];
         return view('edit', $data);
     }
 
-    public function actEditDest(Request $request)
+    public function actEditDest(Request $request, $type, $id)
     {
         $validatedData = $request->validate([
-            'namaObjek' => 'required|unique:objekwisatas',
+            'id_objek_wisata' => 'required',
+            'namaObjek' => 'required',
             'price' => 'required',
             'day' => 'required',
             'type' => 'required',
@@ -187,8 +203,8 @@ class MainController extends Controller
         $stringsH = '';
         $stringsF = '';
         $i = 0;
-        foreach ($validatedData['hari'] as $hari) {
-            if ($i == count($validatedData['hari']) - 1) {
+        foreach ($validatedData['day'] as $hari) {
+            if ($i == count($validatedData['day']) - 1) {
                 $stringsH .= $hari;
             } else {
                 $stringsH .= $hari . ',';
@@ -205,22 +221,22 @@ class MainController extends Controller
             $i++;
         }
 
-        $validatedData['hari'] = $stringsH;
+        $validatedData['day'] = $stringsH;
         $validatedData['fasilitas'] = $stringsF;
 
-        objekwisata::where()
+        $condition = objekwisata::where("fk_id_user", Auth::user()->id)->where("id_objek_wisata", $id)->where("type", $type)
             ->update($validatedData);
-
-        $request->session()->flash('update', "Update Destination Successfully!!");
-        return redirect('/create');
+        if ($condition) {
+            $request->session()->flash('update', "Update Destination Successfully!!");
+            return redirect('/create');
+        }
+        $request->session()->flash('errorup', "Update Destination Error!!");
     }
 
     public function createCulture()
     {
         $data = [
             'title' => 'Create Destination',
-            'user' => session('user'),
-            'role' => session('role')
         ];
         return view('cultureC', $data);
     }
@@ -228,24 +244,26 @@ class MainController extends Controller
     {
         $data = [
             'title' => 'Create Destination',
-            'user' => session('user'),
-            'role' => session('role')
         ];
         return view('natureC', $data);
     }
 
     public function nature()
     {
+        Request()->session()->flash('menu', "menu");
         $data = [
-            'title' => 'Nature Tourism'
+            'title' => 'Nature Tourism',
+            'allDestination' => DB::select("select * from objekwisatas where type='nature'")
         ];
         return view('nature', $data);
     }
 
     public function culture()
     {
+        Request()->session()->flash('menu', "menu");
         $data = [
-            'title' => 'Culture Tourism'
+            'title' => 'Culture Tourism',
+            'allDestination' => DB::select("select * from objekwisatas where type='culture'")
         ];
         return view('culture', $data);
     }

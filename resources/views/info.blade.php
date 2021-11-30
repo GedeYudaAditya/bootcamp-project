@@ -35,8 +35,20 @@
         <br>
         <br>
         <div class="container d-flex justify-content-between">
-            <a href="http://bootcamp-project.test/create/edit/{{ $detailData[0]->id_objek_wisata }}" class="btn btn-success m-1"><i  class="fa fa-edit"></i> Edit </a>
-            <a href="http://bootcamp-project.test/create" class="btn btn-primary m-1"> Back </a>
+            @if (Auth::user()->kategoriAkun == 'guide' && Auth::user()->id == $detailData[0]->id)
+                <a href="http://bootcamp-project.test/create/edit/{{ $detailData[0]->type }}/{{ $detailData[0]->id_objek_wisata }}" class="btn btn-success m-1"><i  class="fa fa-edit"></i> Edit </a>  
+            @else
+                <a href="#" class="btn btn-success m-1"> Pesan Tiket </a>
+            @endif
+            @if (Auth::user()->kategoriAkun == 'touris')
+                <a href="http://bootcamp-project.test/{{  $detailData[0]->type  }}" class="btn btn-primary m-1"> Back </a>
+            @elseif(Auth::user()->kategoriAkun == 'guide' && session()->has('menu'))
+                <a href="http://bootcamp-project.test/{{  $detailData[0]->type  }}" class="btn btn-primary m-1"> Back </a>
+            @elseif(session()->has('index'))
+                <a href="http://bootcamp-project.test" class="btn btn-primary m-1"> Back </a>
+            @else
+                <a href="http://bootcamp-project.test/create" class="btn btn-primary m-1"> Back </a>
+            @endif
         </div>
     </div>
 @endsection

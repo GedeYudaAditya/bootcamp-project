@@ -69,24 +69,24 @@
                 <label class="form-check-label" for="inlineCheckbox2">Selasa</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox1" value="rabu">
-                <label class="form-check-label" for="inlineCheckbox1">Rabu</label>
+                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox3" value="rabu">
+                <label class="form-check-label" for="inlineCheckbox3">Rabu</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox2" value="kamis">
-                <label class="form-check-label" for="inlineCheckbox2">Kamis</label>
+                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox4" value="kamis">
+                <label class="form-check-label" for="inlineCheckbox4">Kamis</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox1" value="jumat">
-                <label class="form-check-label" for="inlineCheckbox1">Jum'at</label>
+                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox5" value="jumat">
+                <label class="form-check-label" for="inlineCheckbox5">Jum'at</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox2" value="sabtu">
-                <label class="form-check-label" for="inlineCheckbox2">Sabtu</label>
+                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox6" value="sabtu">
+                <label class="form-check-label" for="inlineCheckbox6">Sabtu</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox2" value="minggu">
-                <label class="form-check-label" for="inlineCheckbox2">Minggu</label>
+                <input class="form-check-input" name="hari[]" type="checkbox" id="inlineCheckbox7" value="minggu">
+                <label class="form-check-label" for="inlineCheckbox7">Minggu</label>
             </div>
         </div>
         @error('hari')

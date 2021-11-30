@@ -32,13 +32,19 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [MainController::class, 'create']);
             Route::get('/delete/{type}/{id}', [MainController::class, 'deleteDestination'])->name('delete');
             Route::get('/edit/{type}/{id}', [MainController::class, 'editDestination'])->name('edit');
-            Route::get('/info/{type}/{id}', [MainController::class, 'infoDestination'])->name('info');
+            Route::post('/edit/{type}/{id}', [MainController::class, 'actEditDest'])->name('editAct');
 
             Route::get("/culture", [MainController::class, 'createCulture'])->name('addCultureView');
             Route::post("/culture", [MainController::class, 'storeCulture'])->name('addCultureAct');
 
             Route::get('/nature', [MainController::class, 'createNature'])->name('addNatureView');
             Route::post("/nature", [MainController::class, 'storeNature'])->name('addNatureAct');
+        });
+    });
+
+    Route::middleware('role:guide|touris')->group(function () {
+        Route::prefix('create')->group(function () {
+            Route::get('/info/{type}/{id}', [MainController::class, 'infoDestination'])->name('info');
         });
     });
 

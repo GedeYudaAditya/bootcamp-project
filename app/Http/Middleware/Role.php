@@ -15,12 +15,17 @@ class Role
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (Auth::user() && Auth::user()->kategoriAkun == 'guide') {
+        $arrRole = explode('|', $role);
+        if (in_array(Auth::user()->kategoriAkun, $arrRole)) {
             return $next($request);
-        } else {
-            return redirect('/')->with('denied', 'You have not guide access');
         }
+        abort(403, 'Unauthorized action.');
+        // if (Auth::user() && Auth::user()->kategoriAkun == 'guide') {
+        //     return $next($request);
+        // } else {
+        //     return redirect('/')->with('denied', 'You have not guide access');
+        // }
     }
 }

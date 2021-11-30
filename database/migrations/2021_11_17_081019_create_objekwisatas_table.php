@@ -21,7 +21,7 @@ class CreateObjekwisatasTable extends Migration
             $table->enum('type', ['culture', 'nature']);
             $table->enum('category', [
                 'tari', 'musik', 'drama', 'tradisi', 'kuliner',
-                'air terjun', 'danau', 'pegunungan', 'taman'
+                'air terjun', 'danau', 'pegunungan', 'taman', 'pantai'
             ]);
             $table->bigInteger('fk_id_user')->unsigned();
             $table->string('fasilitas');

@@ -44,6 +44,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    @if(session()->has('update'))
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            <strong>{{ session('update') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="container bg-white p-5" style="color: black !important; border-radius: 20px">
         <table id="dataTable" class="table table-striped">
             <thead>
