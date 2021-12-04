@@ -6,6 +6,7 @@ use App\Models\objekwisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\FuncCall;
 
 class MainController extends Controller
 {
@@ -16,16 +17,16 @@ class MainController extends Controller
             'title' => 'Home',
             'allDestination' => DB::select('select * from objekwisatas')
         ];
-        return view('home', $data);
+        return view('menu/home', $data);
     }
 
-    public function create()
+    public function dashboard()
     {
         $data = [
             'title' => 'Create Destination',
             'userDestination' => DB::select("select * from objekwisatas where fk_id_user=" . Auth::user()->id)
         ];
-        return view('create', $data);
+        return view('guide/dashboard', $data);
     }
 
     public function storeCulture(Request $request)
@@ -41,7 +42,6 @@ class MainController extends Controller
             'kab' => 'required',
             'alamat' => 'required',
             'desc' => 'required',
-            'rating' => 'required'
         ]);
 
         $stringsH = '';
@@ -75,11 +75,12 @@ class MainController extends Controller
             'kabupaten' => $validatedData['kab'],
             'alamat' => $validatedData['alamat'],
             'deskripsi' => $validatedData['desc'],
-            'rating' => $validatedData['rating']
+            'like' => 0,
+            'dislike' => 0
         ]);
 
         $request->session()->flash('create', "Creating Destination Successfully!!");
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
     public function storeNature(Request $request)
@@ -94,8 +95,7 @@ class MainController extends Controller
             'fasilitas' => 'required',
             'kab' => 'required',
             'alamat' => 'required',
-            'desc' => 'required',
-            'rating' => 'required'
+            'desc' => 'required'
         ]);
 
         $stringsH = '';
@@ -129,21 +129,22 @@ class MainController extends Controller
             'kabupaten' => $validatedData['kab'],
             'alamat' => $validatedData['alamat'],
             'deskripsi' => $validatedData['desc'],
-            'rating' => $validatedData['rating']
+            'like' => 0,
+            'dislike' => 0
         ]);
 
         $request->session()->flash('create', "Creating Destination Successfully!!");
-        return redirect('/');
+        return redirect('/dashboard');
     }
 
     public function deleteDestination($type, $id)
     {
         if (DB::table('objekwisatas')->where('id_objek_wisata', $id)->where('type', $type)->delete() > 0) {
             Request()->session()->flash('delsuccess', "Delete Destination Successfully!!");
-            return redirect('/create');
+            return redirect('/dashboard');
         } else {
             Request()->session()->flash('delfail', "Delete Destination Failed!!");
-            return redirect('/create');
+            return redirect('/dashboard');
         }
     }
     public function infoDestination($type, $id)
@@ -197,7 +198,8 @@ class MainController extends Controller
             'kabupaten' => 'required',
             'alamat' => 'required',
             'deskripsi' => 'required',
-            'rating' => 'required'
+            'like' => 'required',
+            'dislike' => 'required'
         ]);
 
         $stringsH = '';
@@ -228,7 +230,7 @@ class MainController extends Controller
             ->update($validatedData);
         if ($condition) {
             $request->session()->flash('update', "Update Destination Successfully!!");
-            return redirect('/create');
+            return redirect('/dashboard');
         }
         $request->session()->flash('errorup', "Update Destination Error!!");
     }
@@ -238,14 +240,14 @@ class MainController extends Controller
         $data = [
             'title' => 'Create Destination',
         ];
-        return view('cultureC', $data);
+        return view('guide/manipulation/culture', $data);
     }
     public function createNature()
     {
         $data = [
             'title' => 'Create Destination',
         ];
-        return view('natureC', $data);
+        return view('guide/manipulation/nature', $data);
     }
 
     public function nature()
@@ -255,7 +257,7 @@ class MainController extends Controller
             'title' => 'Nature Tourism',
             'allDestination' => DB::select("select * from objekwisatas where type='nature'")
         ];
-        return view('nature', $data);
+        return view('menu/nature', $data);
     }
 
     public function culture()
@@ -265,7 +267,7 @@ class MainController extends Controller
             'title' => 'Culture Tourism',
             'allDestination' => DB::select("select * from objekwisatas where type='culture'")
         ];
-        return view('culture', $data);
+        return view('menu/culture', $data);
     }
 
     public function about()
@@ -273,6 +275,43 @@ class MainController extends Controller
         $data = [
             'title' => 'Tentang'
         ];
-        return view('about', $data);
+        return view('menu/about', $data);
+    }
+
+    public function account()
+    {
+        $data = [
+            'title' => 'Account'
+        ];
+        return view('account', $data);
+    }
+
+    public function addlike(Request $request, $type, $id)
+    {
+        $object = DB::table('objekwisatas')->where('id_objek_wisata', $id)->where('type', $type)->get();
+
+        // dd($object[0]->like);
+
+        if ($object) {
+
+            $like = $object[0]->like;
+            $like += 1;
+            objekwisata::where('id_objek_wisata', $id)->where('type', $type)->update(array('like' => $like));
+
+            return back();
+        }
+    }
+    public function adddislike(Request $request, $type, $id)
+    {
+        $object = DB::table('objekwisatas')->where('id_objek_wisata', $id)->where('type', $type)->get();
+
+        if ($object) {
+
+            $dislike = $object[0]->dislike;
+            $dislike += 1;
+            objekwisata::where('id_objek_wisata', $id)->where('type', $type)->update(array('dislike' => $dislike));
+
+            return back();
+        }
     }
 }

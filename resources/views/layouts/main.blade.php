@@ -59,15 +59,15 @@
               @auth
                 @if (Auth::user()->kategoriAkun == 'guide')
                   <li class="nav-item">
-                    <a class="nav-link {{ ( $title == 'Create Destination' ) ? 'active' : '' }}" href="/create">+ Edit & Create Destination</a>
+                    <a class="nav-link {{ ( $title == 'Create Destination' ) ? 'active' : '' }}" href="/dashboard">+ Edit & Create Destination</a>
                   </li>
                 @endif
                   <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle {{ ( $title == 'Account' ) ? 'active' : '' }}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <strong>[{{ Auth::user()->name }}]</strong>
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item text-center" href="#"> <i class="fa fa-user"></i> Account</a></li>
+                    <li><a class="dropdown-item text-center" href="/account"> <i class="fa fa-user"></i> Account</a></li>
                     <form action="{{ route('logout') }}" method="POST">
                       @csrf
                       <button type="submit" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</button>

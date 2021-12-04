@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
 @section('content')
-    <h1 class="text-center">Create Nature Destination</h1>
+    <h1 class="text-center">Create Culture Destination</h1>
 
-    <form action="{{ route('addNatureAct') }}" method="POST">
+    <form action="{{ route('addCultureAct') }}" method="POST">
         @csrf
-        <input type="hidden" name="type" value="nature">
+        <input type="hidden" name="type" value="culture">
         <label class="label" for="nama">Nama Objek</label>
         <div class="new-chat-window text-dark">
             <i class="fa fa-home"></i>
@@ -21,7 +21,7 @@
         <div class="new-chat-window text-dark">
         <i class="fa fa-list-alt"></i>
             <select id="kab" class="form-select new-chat-window-input-select form-control @error('kab') is-invalid @enderror" aria-label=".form-select-sm example" name="kab" required value="{{ old('kab') }}">
-                <option selected>Pilih</option>
+                <option hidden disabled selected value>Pilih</option>
                 <option value="badung">Badung</option>
                 <option value="bangli">Bangli</option>
                 <option value="buleleng">Buleleng</option>
@@ -95,16 +95,16 @@
             </div>
         @enderror
 
-        <label class="label" for="kategori">Kategori Wisata Alam</label>
+        <label class="label" for="kategori">Kategori Wisata budaya</label>
         <div class="new-chat-window text-dark">
         <i class="fa fa-list-alt"></i>
             <select id="kategori" class="form-select new-chat-window-input-select form-control @error('kategori') is-invalid @enderror" aria-label=".form-select-sm example" name="kategori" required value="{{ old('kategori') }}">
-                <option selected>Pilih Kategori Wisata</option>
-                <option value="air terjun">Air Terjun</option>
-                <option value="danau">Danau</option>
-                <option value="pegunungan">Pegunungan</option>
-                <option value="taman">Taman</option>
-                <option value="pantai">Pantai</option>
+                <option hidden disabled selected value>Pilih Kategori Wisata</option>
+                <option value="tari">Seni Tari</option>
+                <option value="musik">Seni Musik</option>
+                <option value="drama">Seni Drama</option>
+                <option value="tradisi">Tradisi</option>
+                <option value="kuliner">Kuliner</option>
             </select>
         </div>
         @error('kategori')
@@ -116,12 +116,12 @@
         <label class="label" for="fasilitas">Fasilitas</label>
         <div class="p-4">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="fasilitas[]" type="checkbox" id="fasilitas1" value="Tempat Makan">
-                <label class="form-check-label" for="fasilitas1">Tempat Makan</label>
+                <input class="form-check-input" name="fasilitas[]" type="checkbox" id="fasilitas1" value="Luar Ruangan">
+                <label class="form-check-label" for="fasilitas1">Luar Ruangan</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="fasilitas[]" type="checkbox" id="fasilitas2" value="Penginapan">
-                <label class="form-check-label" for="fasilitas2">Penginapan</label>
+                <input class="form-check-input" name="fasilitas[]" type="checkbox" id="fasilitas2" value="Dalam Ruangan">
+                <label class="form-check-label" for="fasilitas2">Dalam Ruangan</label>
             </div>
         </div>
         @error('hari')
@@ -148,8 +148,8 @@
         @enderror
 
         <input type="hidden" name="fk_id_user" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="rating" value="0">
-
+        {{-- <input type="hidden" name="rating" value="0"> --}}
+        
         <button type="submit" name="submit" class="btn btn-info"><b>Create</b></button>
     </form>
 @endsection

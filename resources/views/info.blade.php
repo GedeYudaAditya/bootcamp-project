@@ -36,7 +36,7 @@
         <br>
         <div class="container d-flex justify-content-between">
             @if (Auth::user()->kategoriAkun == 'guide' && Auth::user()->id == $detailData[0]->id)
-                <a href="http://bootcamp-project.test/create/edit/{{ $detailData[0]->type }}/{{ $detailData[0]->id_objek_wisata }}" class="btn btn-success m-1"><i  class="fa fa-edit"></i> Edit </a>  
+                <a href="http://bootcamp-project.test/dashboard/edit/{{ $detailData[0]->type }}/{{ $detailData[0]->id_objek_wisata }}" class="btn btn-success m-1"><i  class="fa fa-edit"></i> Edit </a>  
             @else
                 <a href="#" class="btn btn-success m-1"> Pesan Tiket </a>
             @endif
@@ -47,7 +47,7 @@
             @elseif(session()->has('index'))
                 <a href="http://bootcamp-project.test" class="btn btn-primary m-1"> Back </a>
             @else
-                <a href="http://bootcamp-project.test/create" class="btn btn-primary m-1"> Back </a>
+                <a href="http://bootcamp-project.test/dashboard" class="btn btn-primary m-1"> Back </a>
             @endif
         </div>
     </div>

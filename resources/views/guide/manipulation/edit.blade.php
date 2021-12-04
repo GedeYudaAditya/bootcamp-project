@@ -14,7 +14,7 @@
 @endif
     <h1 class="text-center">Edit {{ $type }} Destination</h1>
 
-    <form action="http://bootcamp-project.test/create/edit/{{ $type }}/{{ $id }}" method="POST">
+    <form action="http://bootcamp-project.test/dashboard/edit/{{ $type }}/{{ $id }}" method="POST">
         @csrf
         <input type="hidden" name="type" value="nature">
         <label class="label" for="nama">Nama Objek</label>
@@ -197,7 +197,8 @@
         @enderror
 
         <input type="hidden" name="fk_id_user" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="rating" value="{{ $detailData[0]->rating }}">
+        <input type="hidden" name="like" value="{{ $detailData[0]->like }}">
+        <input type="hidden" name="dislike" value="{{ $detailData[0]->dislike }}">
         <input type="hidden" name="id_objek_wisata" value="{{ $detailData[0]->id_objek_wisata }}">
         
         <button type="submit" name="submit" class="btn btn-info"><b>Update</b></button>

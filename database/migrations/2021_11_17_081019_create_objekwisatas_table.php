@@ -38,7 +38,8 @@ class CreateObjekwisatasTable extends Migration
             ]);
             $table->string('alamat');
             $table->text('deskripsi');
-            $table->integer('rating');
+            $table->integer('like');
+            $table->integer('dislike');
             $table->timestamps();
             $table->foreign('fk_id_user')->references('id')->on('users');
         });

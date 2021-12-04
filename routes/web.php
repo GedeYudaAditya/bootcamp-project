@@ -24,34 +24,39 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/culture', [MainController::class, 'culture']);
 
-    Route::get('/tentang', [MainController::class, 'about']);
+    Route::get('/account', [MainController::class, 'account']);
 
     Route::middleware('role:guide')->group(function () {
-        Route::prefix('create')->group(function () {
+        Route::prefix('dashboard')->group(function () {
 
-            Route::get('/', [MainController::class, 'create']);
+            Route::get('/', [MainController::class, 'dashboard']);
             Route::get('/delete/{type}/{id}', [MainController::class, 'deleteDestination'])->name('delete');
             Route::get('/edit/{type}/{id}', [MainController::class, 'editDestination'])->name('edit');
             Route::post('/edit/{type}/{id}', [MainController::class, 'actEditDest'])->name('editAct');
 
-            Route::get("/culture", [MainController::class, 'createCulture'])->name('addCultureView');
-            Route::post("/culture", [MainController::class, 'storeCulture'])->name('addCultureAct');
+            Route::get("/addculture", [MainController::class, 'createCulture'])->name('addCultureView');
+            Route::post("/addculture", [MainController::class, 'storeCulture'])->name('addCultureAct');
 
-            Route::get('/nature', [MainController::class, 'createNature'])->name('addNatureView');
-            Route::post("/nature", [MainController::class, 'storeNature'])->name('addNatureAct');
+            Route::get('/addnature', [MainController::class, 'createNature'])->name('addNatureView');
+            Route::post("/addnature", [MainController::class, 'storeNature'])->name('addNatureAct');
         });
     });
 
     Route::middleware('role:guide|touris')->group(function () {
-        Route::prefix('create')->group(function () {
+        Route::prefix('dashboard')->group(function () {
             Route::get('/info/{type}/{id}', [MainController::class, 'infoDestination'])->name('info');
         });
+
+        Route::get('/like/{type}/{id}', [MainController::class, 'addlike']);
+        Route::get('/dislike/{type}/{id}', [MainController::class, 'adddislike']);
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::get('/landing', [AuthController::class, 'index']);
+Route::get('/tentang', [MainController::class, 'about']);
+
 // Auth
 Route::middleware('guest')->group(function () {
 
