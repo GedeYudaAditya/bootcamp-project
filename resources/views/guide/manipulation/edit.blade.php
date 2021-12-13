@@ -3,7 +3,12 @@
 @section('content')
 
 @php
-    $day = explode(',',$detailData[0]->day)
+    $day = explode(',',$detailData[0]->day);
+    if(count($day) < 7){
+        for($i = count($day); $i < 7; $i++){
+            $day[$i] = "-";
+        }
+    }
 @endphp
 
 @if(session()->has('errorup'))
@@ -14,7 +19,7 @@
 @endif
     <h1 class="text-center">Edit {{ $type }} Destination</h1>
 
-    <form action="http://bootcamp-project.test/dashboard/edit/{{ $type }}/{{ $id }}" method="POST">
+    <form action="http://bootcamp-project.test/dashboard/edit/{{ $type }}/{{ $id }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="type" value="nature">
         <label class="label" for="nama">Nama Objek</label>
@@ -179,13 +184,43 @@
         @enderror
         @endif
 
-        <div class="container mt-4 mb-4">
+        <div class="mb-3">
+            <label for="image" class="form-label">Pilih Gambar Wisata</label>
+            <input type="hidden" name="oldImage" value="{{ $detailData[0]->image }}">
+            <hr>
+            @if ( $detailData[0]->image)
+                <img src="{{ asset('storage/' . $detailData[0]->image) }}" class="img-preview img-fluid img-thumbnail mb-3 col-sm-5">
+            @else
+                <img class="img-preview img-fluid img-thumbnail mb-3 col-sm-5">
+            @endif
+            <input onchange="previewImage()" class="form-control @error('image') is-invalid @enderror" type="file" id="image" name='image'>
+        </div>
+        @error('image')
+            <div class="invalid-feedback massage">
+                {{ $message }}
+            </div>
+        @enderror
+
+        {{-- <div class="container mt-4 mb-4">
             <div class="row justify-content-md-center">
                 <div class="col-md-12 col-lg-8">
                     <h1 class="h2 mb-4">Deskripsi Wisata</h1>
                     <label>Deskripsikan tempat wisatamu</label>
                     <div class="form-group mb-3">
                         <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" placeholder="Deskripsi" rows="20" required>{{ $detailData[0]->deskripsi }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        <div class="container mt-4 mb-4">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12 col-lg-8">
+                    <h1 class="h2 mb-4">Deskripsi Wisata</h1>
+                    <label>Deskripsikan tempat wisatamu</label>
+                    <div class="form-group mb-3 p-4">
+                        <input id="deskripsi" type="hidden" name="deskripsi">
+                        <trix-editor input="deskripsi">{!! $detailData[0]->deskripsi !!}</trix-editor>
+                        {{-- <textarea class="form-control @error('desc') is-invalid @enderror" name="desc" placeholder="Deskripsi" required value="{{ old('desc') }}"></textarea> --}}
                     </div>
                 </div>
             </div>
@@ -203,4 +238,21 @@
         
         <button type="submit" name="submit" class="btn btn-info"><b>Update</b></button>
     </form>
+
+    <script>
+        function previewImage(){
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent){
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

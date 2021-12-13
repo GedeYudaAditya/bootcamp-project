@@ -34,8 +34,11 @@
                 @foreach ($allDestination as $destination)
                     <div class="carousel-item {{ ($i == 1) ? 'active' : ' ' }}">
                         <div class="card bg-dark text-white d-block img-thumbnail">
-                            <img src="img/bali.png" class="img w-100" alt="...">
-                            <div class="card-img-overlay color">
+                            @if ($destination->image)
+                                <img src="{{ asset('storage/' . $destination->image) }}" class="img-thumbnail" alt="...">
+                            @else
+                                <img src="https://source.unsplash.com/1200x600?{{ $destination->type }}" class="img-thumbnail" alt="...">
+                            @endif                            <div class="card-img-overlay color">
                                 <h1 class="card-title">{{ $destination->namaObjek }}</h1>
                                 <p class="card-text">{{ $destination->deskripsi }}</p>
                             </div>
@@ -92,11 +95,11 @@
                 <tr>
                     <th>Picture</th>
                     <th>Nama Objek Wisata</th>
-                    <th>Harga</th>
+                    <th class="hp">Harga</th>
                     {{-- <th>Hari Oprasional</th> --}}
-                    <th>Type Destinasi</th>
-                    <th>Kategori</th>
-                    <th>Fasilitas</th>
+                    <th class="hp">Type Destinasi</th>
+                    <th class="hp">Kategori</th>
+                    <th class="hp">Fasilitas</th>
                     {{-- <th>Deskripsi</th> --}}
                     <th>Aksi</th>
                 </tr>
@@ -112,13 +115,19 @@
                     }
                 @endphp
                     <tr>
-                        <td><img src="{{ url('img/bali.png') }}" class="img-thumbnail w-50" alt="..."></td>
+                        <td>
+                            @if ($Destination->image)
+                                <img src="{{ asset('storage/' . $Destination->image) }}" class="img-thumbnail" alt="...">
+                            @else
+                                <img src="https://source.unsplash.com/1200x600?{{ $Destination->type }}" class="img-thumbnail" alt="...">
+                            @endif
+                        </td>
                         <td>{{ $Destination->namaObjek }}</td>
-                        <td>{{ $Destination->price }}</td>
+                        <td class="hp">{{ $Destination->price }}</td>
                         {{-- <td>{{ $Destination->day }}</td> --}}
-                        <td>{{ $Destination->type }}</td>
-                        <td>{{ $Destination->category }}</td>
-                        <td>{{ $Destination->fasilitas }}</td>
+                        <td class="hp">{{ $Destination->type }}</td>
+                        <td class="hp">{{ $Destination->category }}</td>
+                        <td class="hp">{{ $Destination->fasilitas }}</td>
                         {{-- <td>{{ $Destination->deskripsi }}</td> --}}
                         <td class="text-center">
                             <span class="fa fa-star {{ ( $rating >= 20 ) ? 'checked' : '' }}"></span>

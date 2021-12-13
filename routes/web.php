@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/like/{type}/{id}', [MainController::class, 'addlike']);
         Route::get('/dislike/{type}/{id}', [MainController::class, 'adddislike']);
+        Route::get('/pesan/{type}/{id}', [MainController::class, 'pesan']);
+        Route::post('/pesan', [MainController::class, 'actPesan']);
+        Route::get('/ticket', [MainController::class, 'ticket']);
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

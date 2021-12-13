@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\objekwisata;
 use Illuminate\Http\Request;
+use App\Models\detail_pemilihan;
+use PhpParser\Node\Expr\FuncCall;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Support\Facades\Storage;
 
 class MainController extends Controller
 {
@@ -42,8 +44,12 @@ class MainController extends Controller
             'kab' => 'required',
             'alamat' => 'required',
             'desc' => 'required',
+            'image' => 'image|file|max:1024'
         ]);
 
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('wisata-image');
+        }
         $stringsH = '';
         $stringsF = '';
         $i = 0;
@@ -76,7 +82,8 @@ class MainController extends Controller
             'alamat' => $validatedData['alamat'],
             'deskripsi' => $validatedData['desc'],
             'like' => 0,
-            'dislike' => 0
+            'dislike' => 0,
+            'image' => $validatedData['image']
         ]);
 
         $request->session()->flash('create', "Creating Destination Successfully!!");
@@ -95,9 +102,13 @@ class MainController extends Controller
             'fasilitas' => 'required',
             'kab' => 'required',
             'alamat' => 'required',
-            'desc' => 'required'
+            'desc' => 'required',
+            'image' => 'image|file|max:1024'
         ]);
 
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('wisata-image');
+        }
         $stringsH = '';
         $stringsF = '';
         $i = 0;
@@ -130,7 +141,8 @@ class MainController extends Controller
             'alamat' => $validatedData['alamat'],
             'deskripsi' => $validatedData['desc'],
             'like' => 0,
-            'dislike' => 0
+            'dislike' => 0,
+            'image' => $validatedData['image']
         ]);
 
         $request->session()->flash('create', "Creating Destination Successfully!!");
@@ -139,6 +151,10 @@ class MainController extends Controller
 
     public function deleteDestination($type, $id)
     {
+        $data = DB::table('objekwisatas')->where('id_objek_wisata', $id)->where('type', $type)->get();
+        if ($data[0]->image) {
+            Storage::delete($data[0]->image);
+        }
         if (DB::table('objekwisatas')->where('id_objek_wisata', $id)->where('type', $type)->delete() > 0) {
             Request()->session()->flash('delsuccess', "Delete Destination Successfully!!");
             return redirect('/dashboard');
@@ -162,7 +178,7 @@ class MainController extends Controller
         }
 
         $data = [
-            'title' => 'Create Destination',
+            'title' => 'Info',
             'detailData' => $join
         ];
         return view('info', $data);
@@ -181,7 +197,7 @@ class MainController extends Controller
             'type' => $type,
             'id' => $id
         ];
-        return view('edit', $data);
+        return view('guide/manipulation/edit', $data);
     }
 
     public function actEditDest(Request $request, $type, $id)
@@ -199,8 +215,16 @@ class MainController extends Controller
             'alamat' => 'required',
             'deskripsi' => 'required',
             'like' => 'required',
-            'dislike' => 'required'
+            'dislike' => 'required',
+            'image' => 'image|file|max:1024'
         ]);
+
+        if ($request->file('image')) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['image'] = $request->file('image')->store('wisata-image');
+        }
 
         $stringsH = '';
         $stringsF = '';
@@ -313,5 +337,46 @@ class MainController extends Controller
 
             return back();
         }
+    }
+
+    public function pesan($type, $id)
+    {
+        $object = DB::table('objekwisatas')
+            ->select()->where('objekwisatas.id_objek_wisata', '=', $id)->where('objekwisatas.type', $type)
+            ->join('users', 'objekwisatas.fk_id_user', '=', 'users.id')
+            ->get();
+        $data = [
+            'title' => 'Info',
+            'destinasi' => $object
+        ];
+        return view('pesan', $data);
+    }
+
+    public function actPesan()
+    {
+        $validatedData = Request()->validate([
+            "jumlahTiket" => "required",
+            "totalHarga" => "required",
+            "fk_id_objekWisata" => "required",
+            "fk_id_member" => "required",
+            "waktu" => "required"
+        ]);
+
+        detail_pemilihan::insert($validatedData);
+        return redirect('/tampil');
+    }
+
+    public function ticket()
+    {
+        $id = Auth::user()->id;
+        $destinasi = detail_pemilihan::select()->where('fk_id_member', '=', $id)
+            ->join('users', 'detail_pemilihans.fk_id_member', '=', 'users.id')
+            ->join('objekwisatas', 'detail_pemilihans.fk_id_objekWisata', '=', 'objekwisatas.id_objek_wisata')
+            ->get();
+        $data = [
+            'title' => 'Account',
+            'destinasi' => $destinasi
+        ];
+        return view('tiketprint', $data);
     }
 }

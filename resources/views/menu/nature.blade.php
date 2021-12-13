@@ -31,7 +31,13 @@
                     }
                 @endphp
                     <tr>
-                        <td><img src="{{ url('img/bali.png') }}" class="img-thumbnail w-50" alt="..."></td>
+                        <td>
+                            @if ($Destination->image)
+                                <img src="{{ asset('storage/' . $Destination->image) }}" class="img-thumbnail" alt="...">
+                            @else
+                                <img src="https://source.unsplash.com/1200x600?{{ $Destination->type }}" class="img-thumbnail" alt="...">
+                            @endif
+                        </td>
                         <td>{{ $Destination->namaObjek }}</td>
                         <td>{{ $Destination->price }}</td>
                         {{-- <td>{{ $Destination->day }}</td> --}}

@@ -19,6 +19,7 @@ class CreateDetailPemilihansTable extends Migration
             $table->integer('totalHarga');
             $table->integer('fk_id_objekWisata')->unsigned();
             $table->bigInteger('fk_id_member')->unsigned();
+            $table->string('waktu');
             $table->timestamps();
             $table->foreign('fk_id_objekWisata')->references('id_objek_wisata')->on('objekwisatas');
             $table->foreign('fk_id_member')->references('id')->on('users');

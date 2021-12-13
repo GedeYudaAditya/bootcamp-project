@@ -40,6 +40,7 @@ class CreateObjekwisatasTable extends Migration
             $table->text('deskripsi');
             $table->integer('like');
             $table->integer('dislike');
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->foreign('fk_id_user')->references('id')->on('users');
         });

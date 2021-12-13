@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="text-center">Create Culture Destination</h1>
 
-    <form action="{{ route('addCultureAct') }}" method="POST">
+    <form action="{{ route('addCultureAct') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="type" value="culture">
         <label class="label" for="nama">Nama Objek</label>
@@ -130,13 +130,27 @@
             </div>
         @enderror
 
+        <div class="mb-3">
+            <label for="image" class="form-label">Pilih Gambar Wisata</label>
+            <hr>
+            <img class="img-preview img-fluid img-thumbnail mb-3 col-sm-5">
+            <input onchange="previewImage()" class="form-control @error('image') is-invalid @enderror" type="file" id="image" name='image'>
+        </div>
+        @error('image')
+            <div class="invalid-feedback massage">
+                {{ $message }}
+            </div>
+        @enderror
+
         <div class="container mt-4 mb-4">
             <div class="row justify-content-md-center">
                 <div class="col-md-12 col-lg-8">
                     <h1 class="h2 mb-4">Deskripsi Wisata</h1>
                     <label>Deskripsikan tempat wisatamu</label>
-                    <div class="form-group mb-3">
-                        <textarea class="form-control @error('desc') is-invalid @enderror" name="desc" placeholder="Deskripsi" required value="{{ old('desc') }}"></textarea>
+                    <div class="form-group mb-3 p-4">
+                        <input id="desc" type="hidden" name="desc">
+                        <trix-editor input="desc"></trix-editor>
+                        {{-- <textarea class="form-control @error('desc') is-invalid @enderror" name="desc" placeholder="Deskripsi" required value="{{ old('desc') }}"></textarea> --}}
                     </div>
                 </div>
             </div>
@@ -152,4 +166,21 @@
         
         <button type="submit" name="submit" class="btn btn-info"><b>Create</b></button>
     </form>
+
+    <script>
+        function previewImage(){
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent){
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

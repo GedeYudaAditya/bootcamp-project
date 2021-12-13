@@ -22,6 +22,8 @@
     {{-- teks form editor --}}
     <script src="https://cdn.tiny.cloud/1/uui0b79sdik1s8twzzfs49fztv86neopbymlc1wig7cfvbm4/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
+    <link rel="stylesheet" type="text/css" href="/css/trix.css">
+    <script type="text/javascript" src="/js/trix.js"></script>
     <script>
       tinymce.init({
         selector: 'textarea#editor',
@@ -68,6 +70,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item text-center" href="/account"> <i class="fa fa-user"></i> Account</a></li>
+                    <li><a class="dropdown-item text-center" href="/ticket"> <i class="fa fa-ticket"></i> Your Ticket</a></li>
                     <form action="{{ route('logout') }}" method="POST">
                       @csrf
                       <button type="submit" class="dropdown-item"><i class="fa fa-sign-out"></i> Logout</button>
