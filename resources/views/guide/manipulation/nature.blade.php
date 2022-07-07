@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="text-center">Create Nature Destination</h1>
 
-    <form action="{{ route('addNatureAct') }}" method="POST">
+    <form action="{{ route('addNatureAct') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="type" value="nature">
         <label class="label" for="nama">Nama Objek</label>
@@ -21,7 +21,7 @@
         <div class="new-chat-window text-dark">
         <i class="fa fa-list-alt"></i>
             <select id="kab" class="form-select new-chat-window-input-select form-control @error('kab') is-invalid @enderror" aria-label=".form-select-sm example" name="kab" required value="{{ old('kab') }}">
-                <option selected>Pilih</option>
+                <option hidden disabled selected value>Pilih</option>
                 <option value="badung">Badung</option>
                 <option value="bangli">Bangli</option>
                 <option value="buleleng">Buleleng</option>
@@ -99,7 +99,7 @@
         <div class="new-chat-window text-dark">
         <i class="fa fa-list-alt"></i>
             <select id="kategori" class="form-select new-chat-window-input-select form-control @error('kategori') is-invalid @enderror" aria-label=".form-select-sm example" name="kategori" required value="{{ old('kategori') }}">
-                <option selected>Pilih Kategori Wisata</option>
+                <option hidden disabled selected value>Pilih Kategori Wisata</option>
                 <option value="air terjun">Air Terjun</option>
                 <option value="danau">Danau</option>
                 <option value="pegunungan">Pegunungan</option>
@@ -130,13 +130,38 @@
             </div>
         @enderror
 
+        <label class="label" for="peta">Peta (Gunakan salinan Embed)</label>
+        <div class="new-chat-window text-dark">
+            <i class="fa fa-map"></i>
+            <input class="new-chat-window-input form-control @error('peta') is-invalid @enderror" type="text" name="peta" id="nama" placeholder="Nama Tempat Wisata" required value="{{ old('peta') }}">
+        </div>
+        @error('peta')
+            <div class="invalid-feedback massage">
+                {{ $message }}
+            </div>
+        @enderror
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Pilih Gambar Wisata</label>
+            <hr>
+            <img class="img-preview img-fluid img-thumbnail mb-3 col-sm-5">
+            <input onchange="previewImage()" class="form-control @error('image') is-invalid @enderror" type="file" id="image" name='image'>
+        </div>
+        @error('image')
+            <div class="invalid-feedback massage">
+                {{ $message }}
+            </div>
+        @enderror
+        
         <div class="container mt-4 mb-4">
             <div class="row justify-content-md-center">
                 <div class="col-md-12 col-lg-8">
                     <h1 class="h2 mb-4">Deskripsi Wisata</h1>
                     <label>Deskripsikan tempat wisatamu</label>
-                    <div class="form-group mb-3">
-                        <textarea class="form-control @error('desc') is-invalid @enderror" name="desc" placeholder="Deskripsi" required value="{{ old('desc') }}"></textarea>
+                    <div class="form-group mb-3 p-4">
+                        <input id="desc" type="hidden" name="desc">
+                        <trix-editor input="desc"></trix-editor>
+                        {{-- <textarea class="form-control @error('desc') is-invalid @enderror" name="desc" placeholder="Deskripsi" required value="{{ old('desc') }}"></textarea> --}}
                     </div>
                 </div>
             </div>
@@ -148,8 +173,25 @@
         @enderror
 
         <input type="hidden" name="fk_id_user" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="rating" value="0">
+        {{-- <input type="hidden" name="rating" value="0"> --}}
 
         <button type="submit" name="submit" class="btn btn-info"><b>Create</b></button>
     </form>
+
+    <script>
+        function previewImage(){
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+
+            imgPreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent){
+                imgPreview.src = oFREvent.target.result;
+            }
+        }
+    </script>
 @endsection

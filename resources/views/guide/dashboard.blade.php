@@ -6,7 +6,7 @@
     <div class="row row-cols-1 row-cols-md-2 g-4 black">
         
         <div class="col">
-            <a href="create/nature" class="no-link">
+            <a href="dashboard/addnature" class="no-link">
             <div class="card h-100 link">
             <img src="img/alam.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -19,7 +19,7 @@
         
         
         <div class="col">
-            <a href="create/culture" class="no-link">
+            <a href="dashboard/addculture" class="no-link">
             <div class="card h-100 link">
             <img src="img/budaya.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -50,34 +50,54 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
+    @if(session()->has('create'))
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            <strong>{{ session('create') }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="container bg-white p-5" style="color: black !important; border-radius: 20px">
         <table id="dataTable" class="table table-striped">
             <thead>
                 <tr>
                     <th>Nama Objek Wisata</th>
-                    <th>Harga</th>
+                    <th class="hp">Harga</th>
                     {{-- <th>Hari Oprasional</th> --}}
-                    <th>Type Destinasi</th>
-                    <th>Kategori</th>
-                    <th>Fasilitas</th>
-                    {{-- <th>Deskripsi</th> --}}
+                    <th class="hp">Type Destinasi</th>
+                    <th class="hp">Kategori</th>
+                    <th class="hp">Fasilitas</th>
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($userDestination as $Destination)
+                @php
+                    $total = $Destination->like + $Destination->dislike;
+                    if($total == 0){
+                        $rating = 0;
+                    }else{
+                        $rating = $Destination->like/$total * 100;
+                    }
+                @endphp
                     <tr>
                         <td>{{ $Destination->namaObjek }}</td>
-                        <td>{{ $Destination->price }}</td>
+                        <td class="hp">{{ $Destination->price }}</td>
                         {{-- <td>{{ $Destination->day }}</td> --}}
-                        <td>{{ $Destination->type }}</td>
-                        <td>{{ $Destination->category }}</td>
-                        <td>{{ $Destination->fasilitas }}</td>
-                        {{-- <td>{{ $Destination->deskripsi }}</td> --}}
-                        <td class="d-flex justify-content-center">
-                            <a href="create/info/{{ $Destination->type }}/{{ $Destination->id_objek_wisata }}" class="btn btn-primary m-1" style="width: 40px"> <i  class="fa fa-info"></i> </a>
-                            <a href="create/edit/{{ $Destination->type }}/{{ $Destination->id_objek_wisata }}" class="btn btn-success m-1" style="width: 40px"> <i  class="fa fa-edit"></i> </a>
-                            <a onclick="return confirm('Yakin ingin menghapus data destinasi ini?')" href="create/delete/{{ $Destination->id_objek_wisata }}" class="btn btn-danger m-1" style="width: 40px"> <i  class="fa fa-trash"></i> </a>
+                        <td class="hp">{{ $Destination->type }}</td>
+                        <td class="hp">{{ $Destination->category }}</td>
+                        <td class="hp">{{ $Destination->fasilitas }}</td>
+                        <td class="text-center">
+                            <span class="fa fa-star {{ ( $rating >= 20 ) ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ ( $rating >= 40 ) ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ ( $rating >= 60 ) ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ ( $rating >= 80 ) ? 'checked' : '' }}"></span>
+                            <span class="fa fa-star {{ ( $rating == 100) ? 'checked' : '' }}"></span>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="dashboard/info/{{ $Destination->type }}/{{ $Destination->id_objek_wisata }}" class="btn btn-primary m-1" style="width: 40px"> <i  class="fa fa-info"></i> </a>
+                                <a href="dashboard/edit/{{ $Destination->type }}/{{ $Destination->id_objek_wisata }}" class="btn btn-success m-1" style="width: 40px"> <i  class="fa fa-edit"></i> </a>
+                                <a onclick="return confirm('Yakin ingin menghapus data destinasi ini?')" href="dashboard/delete/{{ $Destination->type }}/{{ $Destination->id_objek_wisata }}" class="btn btn-danger m-1" style="width: 40px"> <i  class="fa fa-trash"></i> </a>
+                            </div>
+                            <span class="badge bg-secondary">{{ $Destination->like }} people like this</span>
                         </td>
                     </tr>
                 @endforeach

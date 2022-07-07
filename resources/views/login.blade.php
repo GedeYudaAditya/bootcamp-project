@@ -28,7 +28,7 @@
         <form action="/login" method="POST">
             @csrf
             <label class="label" for="email">Email Address</label>
-            <div class="new-chat-window">
+            <div class="new-chat-window text-dark">
                 <i class="fa fa-user"></i>
                 <input class="new-chat-window-input form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="example@email.com" required value="{{ old('email') }}" autofocus>
             </div>
@@ -38,7 +38,7 @@
                 </div>
             @enderror
             <label class="label" for="password">Password</label>
-            <div class="new-chat-window">
+            <div class="new-chat-window text-dark">
                 <i class="fa fa-lock"></i>
                 <input class="new-chat-window-input form-control @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Your Password" required>
             </div>

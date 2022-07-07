@@ -5,10 +5,27 @@ body {
     color: white;
 }
 
+.tables {
+    border-bottom: 1px solid grey;
+}
+
+.tiket {
+    background-image: url(/img/ticket.jpg);
+    color: black !important;
+    border-radius: 20px;
+    border-right: black 2px dashed;
+    min-height: 300px;
+    padding: 30px;
+}
+
 a.no-link {
     color: black !important;
     text-decoration: none !important;
     transition: all 1s;
+}
+
+.checked {
+    color: orange !important;
 }
 
 .link:hover {
@@ -253,10 +270,19 @@ form {
     transition-duration: 1s;
 }
 
+.form-group.mb-3.p-4 {
+    background-color: rgb(235, 235, 235) !important;
+    border-radius: 20px;
+    color: black;
+}
+
 /* ==== End Dekstop Layout ==== */
 
 /* ==== Start Smartphone Layout ==== */
 @media (max-width: 768px) {
+    .hp {
+        display: none;
+    }
 
     .banner {
         margin: auto 0;
