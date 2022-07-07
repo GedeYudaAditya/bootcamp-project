@@ -55,6 +55,7 @@ class objekwisataFactory extends Factory
             'category' => $category,
             'fk_id_user' => $randU,
             'fasilitas' => $fasilitas,
+            'peta' => '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15799.444563678975!2d115.09142300112862!3d-8.115617997415894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd19a75a8cd31ed%3A0xd8ccd0338a956584!2sTaman%20Kota%20Singaraja!5e0!3m2!1sid!2sid!4v1639869935301!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>',
             'kabupaten' => 'Buleleng',
             'alamat' => $this->faker->address(),
             'deskripsi' => $this->faker->paragraph(rand(15, 25)),

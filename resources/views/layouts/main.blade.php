@@ -83,7 +83,7 @@
                   <a class="nav-link {{ ( $title == 'Login' ) ? 'active' : '' }}" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link {{ ( $title == 'Registrasi' ) ? 'active' : '' }}" href="/registration">Sign-in</a>
+                  <a class="nav-link {{ ( $title == 'Registrasi' ) ? 'active' : '' }}" href="/registration">Sign-up</a>
                 </li>
               @endauth
             </ul>

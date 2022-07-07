@@ -40,7 +40,7 @@
                                 <img src="https://source.unsplash.com/1200x600?{{ $destination->type }}" class="img-thumbnail" alt="...">
                             @endif                            <div class="card-img-overlay color">
                                 <h1 class="card-title">{{ $destination->namaObjek }}</h1>
-                                <p class="card-text">{{ $destination->deskripsi }}</p>
+                                <p class="card-text hp">{{ $destination->deskripsi }}</p>
                             </div>
                         </div>
                     </div> 
@@ -93,7 +93,7 @@
         <table id="dataTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Picture</th>
+                    <th class="hp">Picture</th>
                     <th>Nama Objek Wisata</th>
                     <th class="hp">Harga</th>
                     {{-- <th>Hari Oprasional</th> --}}
@@ -115,7 +115,7 @@
                     }
                 @endphp
                     <tr>
-                        <td>
+                        <td class="hp">
                             @if ($Destination->image)
                                 <img src="{{ asset('storage/' . $Destination->image) }}" class="img-thumbnail" alt="...">
                             @else

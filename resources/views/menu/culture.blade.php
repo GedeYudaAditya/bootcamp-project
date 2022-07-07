@@ -8,13 +8,13 @@
         <table id="dataTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Picture</th>
+                    <th class="hp">Picture</th>
                     <th>Nama Objek Wisata</th>
-                    <th>Harga</th>
+                    <th class="hp">Harga</th>
                     {{-- <th>Hari Oprasional</th> --}}
-                    <th>Type Destinasi</th>
-                    <th>Kategori</th>
-                    <th>Fasilitas</th>
+                    <th class="hp">Type Destinasi</th>
+                    <th class="hp">Kategori</th>
+                    <th class="hp">Fasilitas</th>
                     {{-- <th>Deskripsi</th> --}}
                     <th>Aksi</th>
                 </tr>
@@ -30,7 +30,7 @@
                     }
                 @endphp
                     <tr>
-                        <td>
+                        <td class="hp">
                             @if ($Destination->image)
                                 <img src="{{ asset('storage/' . $Destination->image) }}" class="img-thumbnail" alt="...">
                             @else
@@ -38,11 +38,11 @@
                             @endif
                         </td>
                         <td>{{ $Destination->namaObjek }}</td>
-                        <td>{{ $Destination->price }}</td>
+                        <td class="hp">{{ $Destination->price }}</td>
                         {{-- <td>{{ $Destination->day }}</td> --}}
-                        <td>{{ $Destination->type }}</td>
-                        <td>{{ $Destination->category }}</td>
-                        <td>{{ $Destination->fasilitas }}</td>
+                        <td class="hp">{{ $Destination->type }}</td>
+                        <td class="hp">{{ $Destination->category }}</td>
+                        <td class="hp">{{ $Destination->fasilitas }}</td>
                         {{-- <td>{{ $Destination->deskripsi }}</td> --}}
                         <td class="text-center">
                             <span class="fa fa-star {{ ( $rating >= 20 ) ? 'checked' : '' }}"></span>

@@ -148,6 +148,17 @@
         @enderror
         @endif
 
+        <label class="label" for="peta">Peta (Gunakan salinan Embed)</label>
+        <div class="new-chat-window text-dark">
+            <i class="fa fa-map"></i>
+            <input class="new-chat-window-input form-control @error('peta') is-invalid @enderror" type="text" name="peta" id="nama" placeholder="Nama Tempat Wisata" required value="{{ $detailData[0]->peta }}">
+        </div>
+        @error('peta')
+            <div class="invalid-feedback massage">
+                {{ $message }}
+            </div>
+        @enderror
+
         @if($type == 'culture')
         <label class="label" for="kategori">Kategori Wisata budaya</label>
         <div class="new-chat-window text-dark">

@@ -41,6 +41,7 @@ class MainController extends Controller
             'kategori' => 'required',
             'fk_id_user' => 'required',
             'fasilitas' => 'required',
+            'peta' => 'required',
             'kab' => 'required',
             'alamat' => 'required',
             'desc' => 'required',
@@ -78,6 +79,7 @@ class MainController extends Controller
             'category' => $validatedData['kategori'],
             'fk_id_user' => $validatedData['fk_id_user'],
             'fasilitas' => $stringsF,
+            'peta' => $validatedData['peta'],
             'kabupaten' => $validatedData['kab'],
             'alamat' => $validatedData['alamat'],
             'deskripsi' => $validatedData['desc'],
@@ -100,6 +102,7 @@ class MainController extends Controller
             'kategori' => 'required',
             'fk_id_user' => 'required',
             'fasilitas' => 'required',
+            'peta' => 'required',
             'kab' => 'required',
             'alamat' => 'required',
             'desc' => 'required',
@@ -137,6 +140,7 @@ class MainController extends Controller
             'category' => $validatedData['kategori'],
             'fk_id_user' => $validatedData['fk_id_user'],
             'fasilitas' => $stringsF,
+            'peta' => $validatedData['peta'],
             'kabupaten' => $validatedData['kab'],
             'alamat' => $validatedData['alamat'],
             'deskripsi' => $validatedData['desc'],
@@ -211,6 +215,7 @@ class MainController extends Controller
             'category' => 'required',
             'fk_id_user' => 'required',
             'fasilitas' => 'required',
+            'peta' => 'required',
             'kabupaten' => 'required',
             'alamat' => 'required',
             'deskripsi' => 'required',
@@ -363,7 +368,7 @@ class MainController extends Controller
         ]);
 
         detail_pemilihan::insert($validatedData);
-        return redirect('/tampil');
+        return redirect('/ticket');
     }
 
     public function ticket()

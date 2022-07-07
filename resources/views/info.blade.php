@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+{{-- @dd($detailData) --}}
 
 <h1 class="text-center" style="margin-top: 20px; margin-bottom: 20px; font-size: 64px;">{{ $detailData[0]->namaObjek }}</h1>
 
@@ -29,6 +30,10 @@
                 @else
                     <div class="badge bg-danger" style="font-size: 24px;">Harga : Rp. {{  $detailData[0]->price  }},-</div>
                 @endif
+            </div>
+            <h1>Lokasi Tempat Wisata</h1>
+            <div class="text-center">
+                {!! $detailData[0]->peta !!}
             </div>
         </div>
         <br>
